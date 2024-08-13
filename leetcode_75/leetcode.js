@@ -21,3 +21,34 @@ var kidsWithCandies = function(candies, extraCandies) {
 };
 
 // -----------------------------------------------------------------------------
+// 345. Reverse Vowels of a String
+
+var reverseVowels = function(s) {
+
+    let vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
+    let vowelsFound = []
+
+    for (let letter of s) {
+        if (vowels.includes(letter)) {
+            vowelsFound.unshift(letter)
+
+        }
+    }
+
+    let result = ''
+    for (let letter of s) {
+        if (!vowels.includes(letter)) {
+            result += letter
+        } else {
+           let vowel = vowelsFound.shift()
+           result += vowel
+        }
+    }
+
+    return result
+
+
+};
+
+// -----------------------------------------------------------------------------
+
