@@ -86,4 +86,16 @@ var gcdOfStrings = function(str1, str2) {
     return str1.substring(0, a)
 }
 // -----------------------------------------------------------------------------
+//151. Reverse Words in a String
+var reverseWords = function(s) {
+    let result = []
+    let stringSplit = s.split(' ').reverse()
+    // console.log("THIS IS STRING SPLIT ", stringSplit)
 
+    for (let el of stringSplit) {
+        if (el != "") {
+            result.push(el)
+        }
+    }
+    return result.join(' ')
+};
