@@ -152,3 +152,43 @@ var productExceptSelf = function(nums) {
     // achieving O(1) space complexity.
     return result
     };
+
+    // -----------------------------------------------------------------------------
+// 605. Can Place Flowers
+// stategy: Check 3 plots at every iteration (left, present, right)
+var canPlaceFlowers = function(flowerbed, n) {
+    //iterate over the flowerbed
+    for (let i=0;i < flowerbed.length;i++) {
+        // create our left and right pointers
+        let left, right
+
+        // if left point is at the starting index
+        if (i === 0) {
+            // assume the left plot AKA out of bounds plot to be true
+            left = true
+        } else {
+            // else if the left pointer is inbounds and the left index is 0 then
+            // this should result in true
+            left = flowerbed[i-1] === 0
+        }
+
+        // same as the above left pointer logic but this time if right pointer is out of bounds
+        // at the end of the flowerbed
+        if (i === flowerbed.length-1) {
+            right = true
+        } else {
+            right = flowerbed[i + 1] === 0
+        }
+
+        // Check if all 3 plots result in 0 AKA empty plots
+        if (left && right && flowerbed[i] === 0) {
+            // if so then plant the flower
+            flowerbed[i] = 1
+            // decrement the flowers we have to plant
+            n -= 1
+        }
+
+    }
+
+    return n <= 0
+}
