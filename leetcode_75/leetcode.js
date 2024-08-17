@@ -99,3 +99,56 @@ var reverseWords = function(s) {
     }
     return result.join(' ')
 };
+
+// -----------------------------------------------------------------------------
+
+// 238. Product of Array Except Self
+var productExceptSelf = function(nums) {
+    // We create an empty result array to store our products except self.
+    // This output array does not affect the space complexity of our analysis.
+    let result = []
+
+
+    // Our prefix represents the product of every number to the left of nums[i].
+    // We equal it to 1 because there is nothing prior to the first index nums[i].
+    let prefix = 1
+    // For prefix, we iterate normally towards the right.
+    for (let i=0;i<nums.length;i++) {
+    // Here we say that results[ @ 'i'] will equal the prefix
+    // This is how, in a way, we are sort of pushing the prefix into the result array.
+    // It's just accessing the index in result array and equaling it to our prefix
+    result[i] = prefix
+
+
+    // After we place the prefix number in it's correct index, we have to multiply it
+    // by the nums[i].
+    // Think about it this way, as we are gradually iterating to the right, we have to 'pick up'
+    // and multiply the current number to the prefix so that it can be the correct prefix for
+    // the next number that we iterate to.
+    prefix *= nums[i]
+    }
+
+
+    // At this point our result array should have every index filled with the prefix calculation
+    // of nums[i]. Now we get the postfix.
+    // Postfix is equal to 1 because there nothing after this current element.
+    let postfix = 1
+    // Iterate backwards to calculate the postfix.
+    // postfix is the product of all elements after nums[i] and not including it.
+    // so index equals the last element, loop needs to stop at or before the first index. index-- to
+    // decrease and go backwards.
+    for (let i = nums.length-1; i >= 0;i--) {
+    // Multiply the postfix by the prefix which already happens to be stored in result[i].
+    // After they are multiplied, result[i] should now have the product of all numbers except nums[i].
+    result[i] *= postfix
+    // Then we multiply postfix with the nums[i] to make sure we have the updated
+    // postfix calculation for the next number in the backwards loop.
+    // It's just like we did for prefix, we are 'picking up' this nums[i] to be multiplied to our
+    // current prefix.
+    postfix *= nums[i]
+    }
+    // Then we return the result/output array that we made.
+    // And remember this array is not included in our space complexity analysis thus
+    // achieving O(1) space complexity.
+    return result
+    };
