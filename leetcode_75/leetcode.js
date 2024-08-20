@@ -192,3 +192,81 @@ var canPlaceFlowers = function(flowerbed, n) {
 
     return n <= 0
 }
+
+// -------------------------------------------------------------------------------------------------
+// 443. String Compression
+
+// Use 2 Pointers and a counter variable to solve this.
+// In our logic below, we will be overwriting characters in the input array, but we will not however,
+// be actually compressing the input array. Instead we will be giving the illusion of compressing it,
+// and then returning the length of that illusion.
+
+// EXAMPLE:
+// For input array: ["a","b","b","b","b","b","b","b","b","b","b","b","b"]
+// After our code iterates and overwrites the input array, it will look like:
+// ["a","b","1","2","b","b","b","b","b","b","b","b","b"]
+// Notice that we didn't actually compress the input string but we will be returning
+// the pointer 'write' because it stops at the '2' which will be the length of the illusional
+// compression we made in the original input array.
+
+
+var compress = function(chars) {
+    // This will read the current element we are iterating over.
+    // Starts at 1 b/c the first letter is always included in compression
+    let read = 1
+    // This will be used as the position for compressed characters to be written
+    // Starts at 0 which is our first index.
+    let write = 0
+    // Keeps track of our character count.
+    // Starts at 1 because the first character is already a length of 1.
+    let count = 1
+
+    // iterate over our input array (chars) using our already declared read pointer.
+    for (read; read < chars.length; read++) {
+
+      // If the letter now is the same as the one before...
+      if (chars[read] === chars[read-1]) {
+        // Increase the count
+        count++
+      } else {
+        // else we've reached a different letter and need to compress.
+        // chars @ position write becomes the last letter before the newly encountered letter.
+        chars[write] = chars[read - 1]
+        // increase position of write.
+        write++
+
+        // This logic handles breaking up double digit counts.
+        // If count is bigger than 1...
+        if (count > 1) {
+          // stringify count and store it in a variable.
+          const countStr = count.toString()
+          // Iterate over the string variable...
+          for (let i = 0; i < countStr.length; i++) {
+            // At each index of the string, add it to our compressed string in the write position.
+            chars[write] = countStr[i]
+            // Increase the position of write.
+            write++
+          }
+        }
+
+        // Then reset the count to 1 for the next set of letters
+        count = 1
+      }
+    }
+
+    // This logic is the same as above but we have to write it seperately for the last character.
+    chars[write] = chars[read-1]
+    write++
+    if (count > 1) {
+      const countStr = count.toString()
+      for (let i = 0; i < countStr.length; i++) {
+        chars[write] = countStr[i]
+        write++
+      }
+    }
+
+    // return the length of the newly compressed string.
+    // The position of write should equal the length.
+    console.log(chars, ' this is chars')
+    return write
+  };
