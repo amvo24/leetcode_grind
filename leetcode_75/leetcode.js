@@ -270,3 +270,5 @@ var compress = function(chars) {
     console.log(chars, ' this is chars')
     return write
   };
+
+  // -------------------------------------------------------------------------------------------------
