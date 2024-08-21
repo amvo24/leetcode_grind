@@ -272,3 +272,28 @@ var compress = function(chars) {
   };
 
   // -------------------------------------------------------------------------------------------------
+  //334. Increasing Triplet Subsequence
+  var increasingTriplet = function(nums) {
+    // Create 2 variables first and second and equal them to infinity.
+    let first = Infinity
+    let second = Infinity
+
+    //Use a for loop to iterate through the array nums
+    for (let num of nums) {
+        // if the num is less or equal to variable 'first'...
+        if (num <= first) {
+            // set variable first to num
+            first = num
+        // if it's greater than first but less than or equal to second
+        } else if (num <= second) {
+            // set 'second' to num
+            second = num
+        // if num is both greater than first and second then we have found a valid triplet
+        } else {
+            return true
+        }
+    }
+
+    // If we reach the end of the array but don't return true then return false
+    return false
+  }
