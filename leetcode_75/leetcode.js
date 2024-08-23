@@ -297,3 +297,21 @@ var compress = function(chars) {
     // If we reach the end of the array but don't return true then return false
     return false
   }
+
+// -------------------------------------------------------------------------------------------------
+// 392. Is Subsequence
+var isSubsequence = function(s, t) {
+    let subsequenceLength = s.length
+    let subIndex = 0
+
+    for (let i=0;i<t.length;i++) {
+        let letter = t[i]
+
+        if (letter == s[subIndex]) {
+            subsequenceLength--
+            subIndex++
+        }
+    }
+
+    return subsequenceLength <= 0
+};
